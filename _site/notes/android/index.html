@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Android | Akhil Mahendra</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Akhil Mahendra">
+<meta name="generator" content="Jekyll v4.2.1">
+<link rel="canonical" href="http://localhost:4000/notes/android/">
+
+<link rel="stylesheet" href="/assets/css/index.css">
+
+<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="Akhil Mahendra">
+
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+
+
+
+
+
+
+<header>
+  <a href="/" class="title">Akhil Mahendra</a>
+  <nav><a href="/" >Home</a><a href="/about/" >About</a><a href="/notes/" >Notes</a></nav>
+
+</header>
+
+<article>
+  <header>
+  <h1><a href="/notes/android/">Android</a></h1><time datetime="2022-04-13T22:46:53+05:30">April 13, 2022</time>
+</header>
+
+  <h1 id="frida-setup">Frida setup</h1>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unxz frida-server-15.1.4-android-arm.xz
+mv frida-server-15.1.4-android-arm frida-server
+adb connect 192.168.59.102:5555 #genymotion
+adb push frida-server /data/local/tmp/
+adb shell "chmod 755 /data/local/tmp/frida-server"
+adb shell "su /data/local/tmp/frida-server &amp;"
+</code></pre></div></div>
+
+<h1 id="getting-apk-from-device-to-pc">Getting apk from device to pc</h1>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>adb shell pm list packages | grep &lt;package_name&gt;
+adb shell pm path com.dreamplug.androidapp
+adb pull &lt;apk_path&gt;
+</code></pre></div></div>
+
+  
+</article>
+
+
+
+<footer>
+  <div>Akhil Mahendra</div>
+  <nav><a href="mailto:niklasbuschmann@users.noreply.github.com" ><svg aria-label="Mail" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#envelope"></use></svg></a><a href="https://github.com/niklasbuschmann/contrast" ><svg aria-label="Github" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#github"></use></svg></a><a href="/feed.xml" ><svg aria-label="Subscribe" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#rss"></use></svg></a></nav>
+
+</footer>
+
+
+</html>

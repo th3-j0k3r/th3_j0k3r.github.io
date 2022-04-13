@@ -1,0 +1,11 @@
+<article>
+  <header><h1>{{ include.title | default: page.title }}</h1></header>
+  <ul class="archive">
+    {% for note in site.notes %}
+    <li>
+      <time datetime="{{ note.date | date_to_xmlschema }}">{{ note.date | date: "%Y-%m-%d" }}</time>
+      <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</article>
