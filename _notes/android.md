@@ -2,7 +2,7 @@
 title:  "Android"
 mathjax: true
 layout: post
-categories: android
+categories: [Android,Security]
 ---
 
 # Frida setup

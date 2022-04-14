@@ -2,7 +2,7 @@
 title:  "AWS"
 mathjax: true
 layout: post
-categories: AWS
+categories: [AWS]
 ---
 
 # 1.Storage

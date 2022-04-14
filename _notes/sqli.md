@@ -2,7 +2,8 @@
 title:  "SQL-injection"
 mathjax: true
 layout: post
-categories: SQLi
+categories: [Security, Websec]
+date: 2017-02-10 11:04 +0200
 ---
 
 Note: This was written back in my collegage days, hosting it now for personal/other's reference. 
