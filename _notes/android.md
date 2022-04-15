@@ -3,6 +3,7 @@ title:  "Android"
 mathjax: true
 layout: post
 categories: [Android,Security]
+date: 2021-04-23 11:04 +0200
 ---
 
 # Frida setup

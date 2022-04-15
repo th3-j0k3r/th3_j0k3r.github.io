@@ -3,6 +3,7 @@ title:  "AWS"
 mathjax: true
 layout: post
 categories: [AWS]
+date: 2020-06-13 11:04 +0200
 ---
 
 # 1.Storage

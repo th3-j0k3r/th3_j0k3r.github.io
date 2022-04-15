@@ -2,7 +2,8 @@
 title:  "assembly"
 mathjax: true
 layout: post
-categories: assembly
+categories: [Assembly]
+date: 2017-05-10 11:04 +0200
 ---
 
 

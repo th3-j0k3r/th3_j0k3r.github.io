@@ -36,3 +36,6 @@ collections:
   notes:
       output: true
       permalink: /notes/:path/
+      
+# Google Analytics
+google_analytics: G-9QZ1661BXG
