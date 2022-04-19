@@ -1,40 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<title>SQL-injection | Akhil Mahendra</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="Akhil Mahendra">
-<meta name="generator" content="Jekyll v4.2.1">
-<link rel="canonical" href="http://localhost:4000/notes/sqli/">
-
-<link rel="stylesheet" href="/assets/css/index.css">
-
-<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="Akhil Mahendra">
-
-<link rel="stylesheet" href="/assets/katex/katex.min.css">
-<script defer src="/assets/katex/katex.min.js"></script>
-<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
-
-
-
-
-
-
-
-
-
-<header>
-  <a href="/" class="title">Akhil Mahendra</a>
-  <nav><a href="/" >Home</a><a href="/about/" >About</a><a href="/notes/" >Notes</a><a href="/usesthis/" >Uses this</a><a href="https://www.goodreads.com/user/show/148803922-akhil-mahendra" >books</a></nav>
-
-</header>
-
-<article>
-  <header>
-  <h1><a href="/notes/sqli/">SQL-injection</a></h1><time datetime="2017-02-10T14:34:00+05:30">February 10, 2017</time>
-</header>
-
-  <p>Note: This was written back in my collegage days, hosting it now for personal/other’s reference.</p>
+I"!t<p>Note: This was written back in my collegage days, hosting it now for personal/other’s reference.</p>
 
 <p>According to <a href="https://owasp.org/www-community/attacks/SQL_Injection">OWASP</a>, SQL injection is an attack wherein the attacker can insert SQL query into the application via user input. A successful SQL injection can result in reading of sensitive data, modification of data in the database and so on.</p>
 
@@ -369,17 +333,4 @@ $directions = array( "DEFAULT" =&gt; "ASC",  "up" =&gt; "ASC",  "down" =&gt;
   <li><a href="https://www.vividcortex.com/blog/2014/07/25/prepared-statement-samples/">https://www.vividcortex.com/blog/2014/07/25/prepared-statement-samples/</a></li>
   <li><a href="https://www.percona.com/blog/2006/08/02/mysql-prepared-statements/">https://www.percona.com/blog/2006/08/02/mysql-prepared-statements/</a></li>
 </ul>
-
-  
-</article>
-
-
-
-<footer>
-  <div>Akhil Mahendra</div>
-  <nav><a href="mailto:akhilmahendra799@gmail.com" ><svg aria-label="Mail" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#envelope"></use></svg></a><a href="https://github.com/th3-j0k3r" ><svg aria-label="Github" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#github"></use></svg></a><a href="/feed.xml" ><svg aria-label="Subscribe" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#rss"></use></svg></a></nav>
-
-</footer>
-
-
-</html>
+:ET

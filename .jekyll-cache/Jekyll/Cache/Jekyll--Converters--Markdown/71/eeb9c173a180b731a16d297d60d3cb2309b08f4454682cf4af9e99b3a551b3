@@ -1,33 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<title>Uses this | Akhil Mahendra</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="Akhil Mahendra">
-<meta name="generator" content="Jekyll v4.2.1">
-<link rel="canonical" href="http://localhost:4000/usesthis/">
-
-<link rel="stylesheet" href="/assets/css/index.css">
-
-<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="Akhil Mahendra">
-
-
-
-
-
-
-
-
-
-<header>
-  <a href="/" class="title">Akhil Mahendra</a>
-  <nav><a href="/" >Home</a><a href="/about/" >About</a><a href="/notes/" >Notes</a><a href="/usesthis/" class="selected">Uses this</a><a href="https://www.goodreads.com/user/show/148803922-akhil-mahendra" >books</a></nav>
-
-</header>
-
-<article>
-  <header><h1><a href="/usesthis/">Uses this</a></h1></header>
-  <p><strong>Desk Setup</strong></p>
+I"<p><strong>Desk Setup</strong></p>
 <ul>
   <li><a href="https://www.ikea.com/in/en/p/lagkapten-adils-desk-black-brown-black-s29417022/">IKEA LAGKAPTEN / ADILS desk</a></li>
   <li><a href="https://www.amazon.in/gp/product/B07XN8RTTS/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&amp;th=1">Kepler Brooks Office Chair</a></li>
@@ -53,16 +24,4 @@
   <li><a href="https://www.amazon.in/gp/product/B074ZV2DSW/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&amp;th=1">Type C to Type A</a></li>
 </ul>
 
-
-</article>
-
-
-
-<footer>
-  <div>Akhil Mahendra</div>
-  <nav><a href="mailto:akhilmahendra799@gmail.com" ><svg aria-label="Mail" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#envelope"></use></svg></a><a href="https://github.com/th3-j0k3r" ><svg aria-label="Github" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#github"></use></svg></a><a href="/feed.xml" ><svg aria-label="Subscribe" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#rss"></use></svg></a></nav>
-
-</footer>
-
-
-</html>
+:ET

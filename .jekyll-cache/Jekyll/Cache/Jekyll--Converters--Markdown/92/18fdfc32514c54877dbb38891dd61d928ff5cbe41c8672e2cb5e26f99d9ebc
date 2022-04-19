@@ -1,0 +1,17 @@
+I"ÿ<h1 id="frida-setup">Frida setup</h1>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unxz frida-server-15.1.4-android-arm.xz
+mv frida-server-15.1.4-android-arm frida-server
+adb connect 192.168.59.102:5555 #genymotion
+adb push frida-server /data/local/tmp/
+adb shell "chmod 755 /data/local/tmp/frida-server"
+adb shell "su /data/local/tmp/frida-server &amp;"
+</code></pre></div></div>
+
+<h1 id="getting-apk-from-device-to-pc">Getting apk from device to pc</h1>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>adb shell pm list packages | grep &lt;package_name&gt;
+adb shell pm path com.dreamplug.androidapp
+adb pull &lt;apk_path&gt;
+</code></pre></div></div>
+:ET
