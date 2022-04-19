@@ -1,0 +1,869 @@
+I"Mh<h1 id="1storage">1.Storage</h1>
+
+<h1 id="aws-storage-services">AWS storage services</h1>
+
+<p>Data storage categorization</p>
+
+<ul>
+  <li>Block storage</li>
+  <li>File storage</li>
+  <li>Object storage</li>
+</ul>
+
+<p>Block storage:</p>
+
+<ul>
+  <li>Stores data in chunks known as blocks</li>
+  <li>Blocks are stored on a volume and attached to a single instance</li>
+  <li>They generally provide very low latency data access</li>
+  <li>Comparable to DAS storage used on premises</li>
+</ul>
+
+<p>File storage:</p>
+
+<ul>
+  <li>Data is stored as operate files with a series of directories</li>
+  <li>Data is stored within a file system</li>
+  <li>Provide shared access for multiple users</li>
+  <li>Comparable to NAS storage used on premises</li>
+</ul>
+
+<p>Object storage:</p>
+
+<ul>
+  <li>Objects are stored across a flat address space</li>
+  <li>Objects are referenced by a unique key</li>
+  <li>Each object can also have associated metadata to help categorize and identify the object</li>
+</ul>
+
+<p>Amazon s3</p>
+
+<ul>
+  <li>Fully managed object based storage service</li>
+  <li>Highly available and highly durable</li>
+  <li>Very cost effective</li>
+  <li>Widely and easily available</li>
+  <li>Unlimited storage capability</li>
+  <li>Highly scalable</li>
+  <li>Smallest file size supported - 0 bytes</li>
+  <li>Largest file supported - 5 TB</li>
+</ul>
+
+<p>When data is being uploaded to s3 we as the customer need to specify the region for that object. By choosing the region, Amazon will keep duplicate of that object in multiple AZ’s within that region for durability and availability.</p>
+
+<p>Durability and availability in S3</p>
+
+<ul>
+  <li>Objects stored in s3 have a durability of 99.999999999%</li>
+  <li>S3 copies numeros copies of the same data in different AZ’s</li>
+  <li>The availability of the S3 objects is 99.99%</li>
+</ul>
+
+<p><strong>Availability</strong> means AWS ensures that the uptime of amazon is 99.99%.</p>
+
+<p><strong>Durability</strong>  means the probability of maintaining your data without it being lost.</p>
+
+<p>S3 Buckets</p>
+
+<ul>
+  <li>To store objects in s3, first we need to create and define a bucket. Bucket can be thought of like a parent folder for your data.</li>
+  <li>Bucket names must be globally unique. Not only region wise but globally unique with the other S3 buckets that exist. Once we create the bucket name we can begin uploading the data.</li>
+  <li>Data can be uploaded into bucket or folders within the bucket</li>
+  <li>Limitation of 100 buckets per aws account</li>
+  <li>Objects that stored in these buckets have unique object key</li>
+</ul>
+
+<p>Storage Classes</p>
+
+<ul>
+  <li>Standard</li>
+  <li>Standard - IA (infrequent Access)</li>
+  <li>Intelligent Tiering</li>
+  <li>One Zone - IA (Infrequent Access)</li>
+  <li>Reduced Redundancy Storage(RRS)</li>
+</ul>
+
+<p>Data that is being accessed frequently:</p>
+
+<ul>
+  <li>Standard - &gt; Default storage class -&gt; more cost effective and offer more availability</li>
+  <li>Reduced Redundancy Storage(No longer recommended by AWS)</li>
+</ul>
+
+<p>Data that is being accessed infrequently:</p>
+
+<ul>
+  <li>Standard IA and One Zone - IA</li>
+  <li>Offers the same access speed to that of Standard</li>
+  <li>Additional cost to retrieve data</li>
+  <li>For long lived data objects</li>
+  <li>One Zone - IA does not replicate data across multiple AZ’s - 99.5 availability</li>
+</ul>
+
+<p>Intelligence Tiering:</p>
+
+<ul>
+  <li>Used for unpredictable access patterns</li>
+  <li>Consist 2 tiers: Frequently accessed and infrequently accessed</li>
+  <li>Automatically moves data into appropriate tier based on access platform</li>
+  <li>Objects must be larger than 128KB</li>
+</ul>
+
+<p>Before choosing storage classes:</p>
+
+<ul>
+  <li>How often is the data likely to be accessed?</li>
+  <li>How critical is my data?</li>
+  <li>How reproducible is the data?</li>
+  <li>Can it be easily created again if need be?</li>
+  <li>Do I know the access patterns of my data?</li>
+</ul>
+
+<p>S3 Security</p>
+
+<ul>
+  <li>Bucket policies
+    <ul>
+      <li>Allow you to impose set access controls within a specific bucket -&gt; who or what can access data within specific bucket</li>
+      <li>Constructed as JSON policies</li>
+      <li>Only control access to the data in the associated bucket</li>
+      <li>Bucket permissions can be very specific using policy conditions -&gt; like specific time range and specific IP</li>
+      <li>Provide added granularity to bucket access</li>
+    </ul>
+  </li>
+  <li>Access Control List
+    <ul>
+      <li>ACL only control access to users outside of your own AWS account, such as public access or access from another aws account</li>
+      <li>Not granular as bucket policies</li>
+      <li>The permissions are broad in access, for example ‘List objects’ and ‘Write objects’</li>
+    </ul>
+  </li>
+  <li>Data encryption
+    <ul>
+      <li>Server side and client side encryption’</li>
+      <li>SSE-S3 (S3 managed Keys)</li>
+      <li>SSE-KMS(KMS managed keys)</li>
+      <li>SSE-C (Customer managed keys)</li>
+      <li>CSE-KMS(KMS managed keys)</li>
+      <li>CSE-C(customer managed keys)</li>
+      <li>SSL is supported</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Data management</p>
+
+<p>Versioning:</p>
+
+<ul>
+  <li>Allows for multiple versions of the same object to exist.</li>
+  <li>Useful to recover from accidental delete or malicious activity</li>
+  <li>Only the latest version of the object is displayed by default</li>
+  <li>Versioning is not enabled by default</li>
+  <li>If versioning is enabled :
+    <ul>
+      <li>You can’t disable versioning, only suspend</li>
+      <li>Added cost for storing multiple version of the same object</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Lifecycle rule:</p>
+
+<ul>
+  <li>Provides an automatic method of managing the lifecycle of your data stored</li>
+  <li>Ability to configure specific criteria to automatically move data between storage classes, including glaciers or even delete the data completely
+    <ul>
+      <li>Cost effective exercise</li>
+      <li>Scenario -&gt; move objects to cheaper storage classes after a set period of time
+        <ul>
+          <li>Or keep the data for set period of time before deletion</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Time frame is configurable allowing you to set your own requirements</li>
+</ul>
+
+<p>Common Use cases of S3</p>
+
+<ul>
+  <li>Data backup
+    <ul>
+      <li>For on premise data or for existing aws services that are using</li>
+      <li>Offers service to backup on premise data</li>
+    </ul>
+  </li>
+  <li>Static content and website
+    <ul>
+      <li>Can access using unique url</li>
+      <li>Cloudfront</li>
+      <li>Whole static website can be hosted</li>
+    </ul>
+  </li>
+  <li>Large data sets</li>
+  <li></li>
+</ul>
+
+<p>Limitation of S3</p>
+
+<ul>
+  <li>Data archiving for long term use</li>
+  <li>Dynamic and fast changing data</li>
+  <li>File system requirements</li>
+  <li>Structured data with queries</li>
+</ul>
+
+<h1 id="amazon-glacier">Amazon Glacier</h1>
+
+<ul>
+  <li>A very low cost, long term, durable storage solution suited for long term backup and archival requirements</li>
+  <li>It does not provide instant access to your data</li>
+  <li>99.999999999% durability -&gt; replicate data across multiple AZ’s within a single region</li>
+  <li>Storage costs are considerably lower than S3</li>
+  <li>Retrieval of your data can take up to several hours</li>
+</ul>
+
+<p>There are no bucket concept in Glacier only valut and archives</p>
+
+<p>Glacier vault:</p>
+
+<ul>
+  <li>:vault acts as a container for glacier archives</li>
+  <li>Vaults are regional -&gt; region need to be specified at the time of creation</li>
+  <li>Within each vault you can store data as archives</li>
+</ul>
+
+<p>Glacier archives :</p>
+
+<ul>
+  <li>Archives can be any objects similar to s3</li>
+  <li>You can have unlimited archives within your glacier vaults</li>
+</ul>
+
+<p>Glacier dashboard</p>
+
+<ul>
+  <li>The glacier dashboard only allows your to create vaults</li>
+  <li>Any operational process to upload or retrieve data HAS to be done using code:
+    <ul>
+      <li>Amazon SDK</li>
+      <li>The Glacier web service API</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Moving data to glacier</p>
+
+<ul>
+  <li>Create your vault</li>
+  <li>Move the data in to the vault using API/SDK/
+    <ul>
+      <li>If data already exists in S3 -&gt; data can be moved using S3 Lifecycle rule</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Data retrieval</p>
+
+<ul>
+  <li>Expidited
+    <ul>
+      <li>Used for urgent access to as subset of an archive</li>
+      <li>Less than 250 MB</li>
+      <li>Data available within 1-5 min</li>
+    </ul>
+  </li>
+  <li>Standard
+    <ul>
+      <li>Used to retrieve any of your archives, regarding of size</li>
+      <li>Data available within 3-5 hours</li>
+    </ul>
+  </li>
+  <li>Bulk
+    <ul>
+      <li>Used to retrieve petabytes of data</li>
+      <li>Data available within 5-12 hours</li>
+      <li>The cheapest option for data retrieval</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Glacier Security</p>
+
+<ul>
+  <li>Data is encrypted by default using the AES-256 encryption algorithm</li>
+  <li>Vault access policy
+    <ul>
+      <li>Resource based policy- applied directly to your resource - similar to bucket policy</li>
+      <li>Applied to specific vault</li>
+      <li>Each vault can only contain 1 vault access policy</li>
+      <li>Policy is in json format</li>
+      <li>Policy contains a principal component</li>
+    </ul>
+  </li>
+  <li>Vault lock policies
+    <ul>
+      <li>Once set they cannot be changed</li>
+      <li>Used to help maintain specific governance and compliance controls</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="ec2-instance-level-storage">EC2 instance level storage</h1>
+
+<ul>
+  <li>Storage resides on the same ec2 host machine</li>
+  <li>Provides temporary storage</li>
+  <li>Not recommended to store critical or valuable data</li>
+  <li>If your instance is stopped or terminated your data is lost</li>
+  <li>If rebooted, your data remain in tact</li>
+</ul>
+
+<p>Benefits</p>
+
+<ul>
+  <li>No additional cost for storage, it’s included in the price of the instance</li>
+  <li>Offer a very high I/O speed</li>
+  <li>Instance store volumes are ideal for cache of buffer for rapidly changing data without the need for retention</li>
+  <li>Often used within a load balancing group, where the data is replicated and pooled between the fleet</li>
+</ul>
+
+<p>Delimits:</p>
+
+<ul>
+  <li>Data that need to be persistent</li>
+  <li>Data that need to accessed and shared by multiple entities</li>
+</ul>
+
+<h1 id="elastic-store-block">Elastic Store Block</h1>
+
+<ul>
+  <li>Provides block level storage to EC2 instance</li>
+  <li>Offers persistent and durable storage</li>
+  <li>Greater flexibility than that of instance storage volumes</li>
+  <li>EBS volumes can be attached to EC2 instances for rapidly changing data</li>
+  <li>Used to retain valuable data due to its persistence qualities</li>
+  <li>Operates as a separate service to EC2</li>
+  <li>EBS volumes act as network attached storage services</li>
+  <li>Each volumes can only be attached to one EC2 instances</li>
+  <li>Multiple EBS volumes can be attached to a single EC2 instances</li>
+  <li>Data is retained if the EC2 instance is stopped, restarted or terminated</li>
+  <li>EBS volumes can be only attached to EC2 instances that exist in the same within the same AZ</li>
+</ul>
+
+<p>EBS Snapshots</p>
+
+<p>EBS volume =&gt; point in time snapshots [manual or automatic schduled] =&gt; EBS snapshot[are stored in S3]</p>
+
+<ul>
+  <li>Snapshots are incremental -&gt; only diff of new objects will be snapshoted</li>
+  <li>Can create new EBS volume</li>
+</ul>
+
+<p>High availability</p>
+
+<ul>
+  <li>AWS will replicate the EBS volumes in same AZ’s in the same region</li>
+  <li></li>
+</ul>
+
+<p>EBS volume type</p>
+
+<ul>
+  <li>SSD
+    <ul>
+      <li>Suited for work with smaller blocks</li>
+      <li>Such as DB’s using transactional workloads</li>
+      <li>Often used for boot volumes on EC2 instances</li>
+      <li>Two categories
+        <ul>
+          <li>General purpose SSD (GP2)</li>
+          <li>Provisioned IOPS (IO1)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>HDD
+    <ul>
+      <li>Designs for workload requiring a high rate of throughput</li>
+      <li>Such as big data processing and logging information</li>
+      <li>Larger blocks of data</li>
+      <li>Two categories:
+        <ul>
+          <li>Cold HDD(SC1)</li>
+          <li>Throughput Optimized HDD(ST1)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Encryption</p>
+
+<ul>
+  <li>EBS offers encryption at rest and in transit</li>
+  <li>Encryption is managed by the EBS service itself</li>
+  <li>It can be enabled with a checkbox</li>
+  <li>AES 256 -&gt; AWS KMS -&gt; AWS KMS CMK/DMK</li>
+</ul>
+
+<p>Creating a new EBS volume</p>
+
+<p>There are 2 ways to creates:</p>
+
+<ul>
+  <li>During the creation of a new ec2 instance</li>
+  <li>As a stand alone EBS volume</li>
+</ul>
+
+<p>Changing the size of an EBS volume</p>
+
+<ul>
+  <li>EBS volumes are elastically scalable</li>
+  <li>Increases the volume size via the AWS console or CLI</li>
+  <li>After the increase you must extend the filesystem on the ec2 instance to utilize the additional storage</li>
+  <li>It is possible to resize a volume by creating a new volume from a snapshot</li>
+</ul>
+
+<p>Pricing - &gt; per month</p>
+
+<p>Disadvantages</p>
+
+<ul>
+  <li>EBS is not well suited for all storage requirements like temporary storage, multi-instance storage access or high durability and high availability</li>
+  <li></li>
+</ul>
+
+<h1 id="elastic-file-system">Elastic File System</h1>
+
+<ul>
+  <li>EFS provide a file level storage service</li>
+  <li>EFS is fully managed</li>
+  <li>Highly available &amp; durable</li>
+  <li>Ability to create shared file system</li>
+  <li>Highly scalable</li>
+  <li>Concurrent access by 1000’s of instances</li>
+  <li>Limitless capacity - similar to S3, elastically increase the storage capacity on the requests</li>
+</ul>
+
+<p>Creating EFS file system</p>
+
+<ul>
+  <li>Create EFS from console</li>
+  <li>Choose VPC</li>
+  <li>EFS will automatically create mount target to you</li>
+  <li>Mount target will help you to connect to the EFS from the EC2 instances</li>
+  <li>Supported only NFS V4.0, and V4.1</li>
+  <li>Does not support Windows</li>
+  <li>Linux instance must have the NFS client installed to mount the target</li>
+  <li>Next step is to set the performance mode and encryption settings</li>
+  <li>Two performance mode
+    <ul>
+      <li>General purpose
+        <ul>
+          <li>Used in most use cases</li>
+          <li>Provides lowest latency</li>
+          <li>Max of 7000 file system operation per second for your EFS</li>
+        </ul>
+      </li>
+      <li>Max I/O
+        <ul>
+          <li>Used for huge scale architectures</li>
+          <li>Concurrent access of 1000’s instances</li>
+          <li>Can exceed 7000 file system operations per second</li>
+        </ul>
+      </li>
+      <li></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="cloudfront">Cloudfront</h1>
+
+<ul>
+  <li>Acts as a Content Delivery Network</li>
+  <li>Distributes data requested through web traffic closer to the end user via edge locations as cache data</li>
+  <li>As the data is cached, durability of the data is not possible</li>
+  <li>Origin data can come from S3</li>
+</ul>
+
+<p>Edge location</p>
+
+<ul>
+  <li>AWS edge locations are sites deployed in highly populated areas across the globe.</li>
+  <li>Edge locations are not used to deploy infrastructure (ECS/EBS)</li>
+  <li>Edge locations allow the ability to cache data and reduce latency for end user access with services such as Amazon Cloudfront</li>
+</ul>
+
+<p>Distribution</p>
+
+<ul>
+  <li>Web Distribution
+    <ul>
+      <li>Used to distribute static and dynamic content</li>
+      <li>Uses both HTTP and HTTPS protocol</li>
+      <li>Allows you to add, remove and update objects</li>
+      <li>Ability to provide live stream functionality on your website</li>
+      <li>Uses an <code class="language-plaintext highlighter-rouge">origin</code> to define where the source data is coming from</li>
+      <li>Origins can be a web server , EC2 instance or an Amazon s3 bucket</li>
+    </ul>
+  </li>
+  <li>RTMP distribution
+    <ul>
+      <li>Should be used if your focus is to distribute streaming media using Adobe Flash media server’s RTMP protocol.</li>
+      <li>Allows the end user to start viewing media before the complete file has been downloaded from the edge location.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Distribution Configuration</p>
+
+<ul>
+  <li>You must specify your origin location</li>
+  <li>Select specific caching behavioral options</li>
+  <li>Define the distribution settings(which edge locations you want your data to be distributed to which can be [US, canada, europe], [US, canada, europe, asia], [All edge locations])</li>
+</ul>
+
+<h1 id="storage-gateway">Storage gateway</h1>
+
+<ul>
+  <li>Gateway between your own premises data center and AWS</li>
+  <li>The software appliance can be download from aws as a virtual machine which then can be installed in your vm or hypervisor</li>
+  <li>Offer 3 configuration
+    <ul>
+      <li>File gateway
+        <ul>
+          <li>Allow you to securely store files as objects within S3</li>
+          <li>Ability to mount or map drives to an S3 bucket as if it was a share held locally</li>
+        </ul>
+      </li>
+      <li>Volume gateaway
+        <ul>
+          <li></li>
+        </ul>
+      </li>
+      <li>Tape Gateway</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Complete it tomorrow</p>
+
+<h1 id="snowball">Snowball</h1>
+
+<ul>
+  <li>Used for securely transfer large amounts of data in and out of AWS (Petabytes scale)</li>
+  <li>Either from your on-premise data center to amazon S3, or from Amazon S3 back to your data center using a physical appliance, known as a snowball</li>
+  <li>The snowball appliance comes as either a 50TB or 80 TB device.</li>
+  <li>The snowball appliance is dust, water and tamper resistant.</li>
+</ul>
+
+<p>Encryption and Tracking</p>
+
+<ul>
+  <li>By default snowball appliance is automatically encrypted 2 way encryption using KMS.</li>
+  <li>Allows gives end to end tracking using a E INK shipping label. This ensures when the device leaves your premises it is sent to the right AWS facility</li>
+  <li>The appliance can be tracked using SNS text messages or via the AWS management Console.</li>
+  <li>Data removal from the appliance is the responsibility of the AWS , confirming NIST standards.</li>
+</ul>
+
+<p>If your data retrieval takes longer than a week using your existing connection method, then consider using AWS snowball.</p>
+
+<h1 id="2compute">2.Compute</h1>
+
+<p>What is compute</p>
+
+<ul>
+  <li>Brains and processing power required by the application and the system to carry out computational tasks via a series of instructions.</li>
+</ul>
+
+<h1 id="ec2">EC2</h1>
+
+<ul>
+  <li>Amazon Machine Images</li>
+  <li>Instance types</li>
+  <li>Instance purchase options</li>
+  <li>Tenancy</li>
+  <li>User data</li>
+  <li>Storage options</li>
+  <li>Security</li>
+</ul>
+
+<p>AMI</p>
+
+<ul>
+  <li>Preconfigured templates for ec2 instances helps you to launch new instances quickly</li>
+  <li>AMI is a image baseline which include OS with applications with any custom configurations.</li>
+  <li>We can create our own AMI</li>
+  <li>AMI market place is place to purchase AMI from trusted ventors</li>
+  <li>There are community AMI’s too</li>
+</ul>
+
+<p>Instance type</p>
+
+<ul>
+  <li>Defines size of the instance based on different parameters</li>
+  <li>AVX for audio video or scientic analysis</li>
+  <li>Vcpus, memory, instance storage, network performance while you create a new instance</li>
+  <li>Instances types
+    <ul>
+      <li>Micros instances</li>
+      <li>General pupose - small to medium db, testing , backend</li>
+      <li>Compute optimized- high performance service, web service ,</li>
+      <li>GPU instance-</li>
+      <li>FPGA instance - financial computing</li>
+      <li>Memory optimized - realtime processing of unstructured data like microsoft share point</li>
+      <li>Storage optimized</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Instance purchasing options</p>
+
+<ul>
+  <li>On-demand instances</li>
+  <li>Reserverd</li>
+  <li>Scheduled</li>
+  <li>Spot</li>
+  <li>On-demand capacity reservations</li>
+</ul>
+
+<h1 id="cost-management">Cost management</h1>
+
+<p>Total Cost Ownership calculator (TCO)</p>
+
+<ul>
+  <li>Free service to compare dc vs aws cloud</li>
+  <li>For those who wish to migrate to aws</li>
+  <li>How it works
+    <ul>
+      <li>Questionnaire
+        <ul>
+          <li>Number/types of servers</li>
+          <li>type/amount of storage</li>
+          <li>Option to include details on n/w hardware /labour costs</li>
+        </ul>
+      </li>
+      <li>TCO will give a report
+        <ul>
+          <li>Saving estimate</li>
+          <li>Cost comparison</li>
+          <li>Show which all aws services is need to mirror dc</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Billing dashboard</p>
+
+<ul>
+  <li>Dynamic graphs</li>
+  <li>Monthly account cost/usage to date</li>
+  <li>Previous month cost /usage</li>
+  <li>There are 3 different graphs
+    <ul>
+      <li>Spend summary graph
+        <ul>
+          <li>Previous month total spent</li>
+          <li>Current month spent month-to-date</li>
+          <li>Estimate total you will spend by month end</li>
+        </ul>
+      </li>
+      <li>Spend by Service &amp; Service by Spend
+        <ul>
+          <li>Current month-to-date</li>
+          <li>What service are used most</li>
+          <li>Spend by service: percentage of total cost</li>
+          <li>Service by spend: amounts spent on service</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>AWS cost explorer</p>
+
+<ul>
+  <li>At a glance graph related to spending /usage</li>
+  <li>Different from billing dashboard</li>
+  <li>It shows 12 months of data</li>
+  <li>Forecasts up to 3 months</li>
+  <li>Reserved instance recommendations</li>
+  <li>Includes preset filters
+    <ul>
+      <li>Review data based on aws service, regions, linked a/c, az, instance type, usage type</li>
+    </ul>
+  </li>
+  <li>Use cases;
+    <ul>
+      <li>Graph of cost/ usage data</li>
+      <li>Quick analysis - identify trends, traffic spikes</li>
+      <li>Forecast spendings based on historical data</li>
+      <li>Best for stable usage of services</li>
+    </ul>
+  </li>
+  <li>Limitations
+    <ul>
+      <li>Forecast based on historic data</li>
+      <li>Pre-set graphs and filters</li>
+      <li>Customization not possible</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Aws budgets</p>
+
+<ul>
+  <li>Set service cost/usage thresholds for an aws service</li>
+  <li>Alert when you exceed thresholds</li>
+  <li>There are 3 types of budgets:
+    <ul>
+      <li>Cost</li>
+      <li>Usage</li>
+      <li>Reserved instance budgets</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Consolidated billing</p>
+
+<ul>
+  <li>For companies that has numerous or separate aws a/cs</li>
+  <li>Simplify billing with potential cost savings</li>
+</ul>
+
+<p>Aws customer support</p>
+
+<ul>
+  <li>AWS Customer support plans
+    <ul>
+      <li>Basic</li>
+      <li>Developer</li>
+      <li>Business</li>
+      <li>Enterprise</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="aws-trusted-advisor">AWS Trusted advisor</h1>
+
+<ul>
+  <li>For optimizing your infra</li>
+  <li>Recommends improvements based on best practices
+    <ul>
+      <li>What recommendations
+        <ul>
+          <li>Cost optimization</li>
+          <li>Performance</li>
+          <li>Security</li>
+          <li>Fault tolerance</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Based on checks</li>
+  <li>All checks availble for business/enterprise</li>
+  <li>Outside support plan will have access to 6 core checks
+    <ul>
+      <li>6 core checks are split in to performance and security
+        <ul>
+          <li>Performance
+            <ul>
+              <li>Service limits</li>
+            </ul>
+          </li>
+          <li>Security
+            <ul>
+              <li>Securiyt groups</li>
+              <li>Ebs public snapshot</li>
+              <li>Rds public snapcshot</li>
+              <li>IAM use</li>
+              <li>MFA on root</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>We can see the checks and take actions</li>
+  <li>Can restrict to security or cost etc.using IAM</li>
+  <li>Can restrict access specific checks using IAM</li>
+  <li>cloud watch events + SNS to sent alert on changes</li>
+</ul>
+
+<h1 id="aws-configpending">AWS Config(pending)</h1>
+
+<ul>
+  <li>Resourcce management
+    <ul>
+      <li>What resources do we have</li>
+      <li>Are there any sec vuln</li>
+      <li>Dependency of resources</li>
+    </ul>
+  </li>
+  <li>What does Aws config do
+    <ul>
+      <li>Captures resource changes</li>
+      <li>Act as an resource inventory</li>
+      <li>Store configuration history</li>
+      <li>Provide snapshot of configurations</li>
+      <li>Nofications about changes</li>
+      <li>Provide cloutrail intergration =&gt; who made changes at what time and with which api</li>
+      <li>Use rules to compliancy</li>
+      <li>Security analysis</li>
+      <li>Identity relationships</li>
+    </ul>
+  </li>
+  <li>Key components
+    <ul>
+      <li>Aws resources
+        <ul>
+          <li>Objects that can be created, updated, delete from aws management console</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="aws-cloudtrail">AWS Cloudtrail</h1>
+
+<ul>
+  <li>Records and tracks all the <strong>api request</strong> in your AWS account
+    <ul>
+      <li>These api calls can from SDK’s, AWS CLI, AWS management console, Another AWS service</li>
+    </ul>
+  </li>
+  <li>Every api call is recorded as an event</li>
+  <li>Multiple events are recorded in cloudtrail logs</li>
+  <li>Meta data -&gt; identity of the caller, timestamp, source ip</li>
+</ul>
+
+<h1 id="aws-cloudwatch">AWS cloudwatch</h1>
+
+<h1 id="aws-ecs">AWS ECS</h1>
+
+<ul>
+  <li>Different ways to set up docker in aws
+    <ul>
+      <li>Docker out of the box + vanilla ec2 instance &lt; IasS</li>
+      <li>Aws elastic beanstalk + docker container format &lt;- PaaS</li>
+      <li>Docker datacenter DDC for aws &lt;= CaaS</li>
+      <li>Docker for AWS</li>
+    </ul>
+  </li>
+  <li>ALB, for prod</li>
+  <li>EBS &lt;- persistant storage</li>
+  <li>IAM &lt;- learn about different policies</li>
+</ul>
+
+<h1 id="aws-elastic-beanstalk">AWS Elastic Beanstalk</h1>
+
+<ul>
+  <li>Upload web app code with env config</li>
+  <li>Supports packer builder, singel container docker, multi-container docker, preconfigured docker , almost all web app languages</li>
+  <li>No cost</li>
+  <li>Cost will be on ec2 or any other service is needed</li>
+</ul>
+:ET

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>assembly | Akhil Mahendra</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Akhil Mahendra">
+<meta name="generator" content="Jekyll v4.2.1">
+<link rel="canonical" href="http://localhost:4000/notes/assembly/">
+
+<link rel="stylesheet" href="/assets/css/index.css">
+
+<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="Akhil Mahendra">
+
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+
+
+
+
+
+
+
+
+<header>
+  <a href="/" class="title">Akhil Mahendra</a>
+  <nav><a href="/" >Home</a><a href="/about/" >About</a><a href="/notes/" >Notes</a><a href="/usesthis/" >Uses this</a></nav>
+
+</header>
+
+<article>
+  <header>
+  <h1><a href="/notes/assembly/">assembly</a></h1><time datetime="2017-05-10T14:34:00+05:30">May 10, 2017</time>
+</header>
+
+  <!-- Output copied to clipboard! -->
+
+<!-----
+
+Yay, no errors, warnings, or alerts!
+
+Conversion time: 1.103 seconds.
+
+
+Using this Markdown file:
+
+1. Paste this output into your source file.
+2. See the notes and action items below regarding this conversion run.
+3. Check the rendered output (headings, lists, code blocks, tables) for proper
+   formatting and use a linkchecker before you publish this page.
+
+Conversion notes:
+
+* Docs to Markdown version 1.0β33
+* Thu Apr 14 2022 10:08:49 GMT-0700 (PDT)
+* Source doc: Assembly Notes
+* This is a partial selection. Check to make sure intra-doc links work.
+----->
+
+<p><strong><span style="text-decoration:underline;">Data Types</span></strong></p>
+
+<p>Char -&gt; Byte</p>
+
+<p>Short -&gt; Word</p>
+
+<p>int/long -&gt; DoubleWord</p>
+
+<p>double/long long -&gt; Quad Word</p>
+
+<p>Long Double -&gt; Double Quad Word</p>
+
+<p><strong><span style="text-decoration:underline;">Negative numbers</span></strong></p>
+
+<p>1’s complement - flip bits 0-&gt;1 , 1-&gt;0</p>
+
+<p>2’s complement - 1’s complement + 1</p>
+
+<p>Positive Number is between 0x01 - 0x7F</p>
+
+<p>Negative Number is between 0x80 - 0xFF</p>
+
+<p><strong><span style="text-decoration:underline;">Architecture CISC and RISC</span></strong></p>
+
+<p>CISC:-</p>
+
+<p>Eg; Intel</p>
+
+<p>RISC:</p>
+
+<p>More registers , less and fixed instructions</p>
+
+<p>Eg: ARM, PowerPC</p>
+
+<p>Little Endian -&gt; 0x12345678 -&gt; 78,56,34,12 -&gt;  Ram , Eg:Intel</p>
+
+<p>Big Endian    -&gt; 0x12345678   -&gt; 12,34,56,78  -&gt; Registers</p>
+
+<p><strong><span style="text-decoration:underline;">Registers</span></strong></p>
+
+<ul>
+  <li>Small memory built into the processor(volatile memory)</li>
+  <li>In Intel we have 8 general purpose registers + IP</li>
+</ul>
+
+<p><strong><span style="text-decoration:underline;">Register Conventions -1</span></strong></p>
+
+<ul>
+  <li>EAX - Stores function return values eg: int sub(){return 0xbeef;}</li>
+  <li>EBX - Base pointer to the data section</li>
+  <li>ECX - Counter for string  and loop operations</li>
+  <li>EDX - I/O pointer</li>
+</ul>
+
+<p><strong><span style="text-decoration:underline;">Register Conventions -2</span></strong></p>
+
+<ul>
+  <li>ESI - Source pointer for string operations</li>
+  <li>EDI - Destination pointer for string operations</li>
+  <li>ESP - stack pointer, always points towards the top of the stack.</li>
+  <li>EBP - Stack frame base pointer</li>
+  <li>EIP - Pointer to next instruction to execute</li>
+</ul>
+
+<p><strong><span style="text-decoration:underline;">Register Conventions -3</span></strong></p>
+
+<ul>
+  <li>Caller-save registers - eax,edx,ecx , values get deleted when calling another function</li>
+  <li>Callee -save registers - ebp,ebx,esi,edi values would not get deleted</li>
+</ul>
+
+<p><strong><span style="text-decoration:underline;">EFlags </span></strong></p>
+
+<ul>
+  <li>Registers</li>
+  <li>Zero Flag- set if the result of some instruction is zero</li>
+  <li>Sign Flag - 0 indicates positive value and 1 indicates negative</li>
+</ul>
+
+<p><strong><span style="text-decoration:underline;">Instructions</span></strong></p>
+
+<ol>
+  <li><strong>NOP</strong>
+    <ol>
+      <li>No operation . Just to pad/align byte or to delay time. Used in buffer overflow exploit. ( intel’s example 16 byte )</li>
+    </ol>
+  </li>
+  <li><strong>PUSH</strong>
+    <ol>
+      <li>Can  be a numeric constant. For instance, push 4 will push 00000004 to the stack.</li>
+      <li>Can be the value in a register. Eg: push eax; will push the value inside eax</li>
+      <li>Push instruction automatically decrements the ESP by 4 bytes</li>
+    </ol>
+  </li>
+  <li><strong>POP</strong>
+    <ol>
+      <li>Take Dword off the stack</li>
+      <li>Put in a register</li>
+      <li>Increment by 4 bytes</li>
+    </ol>
+  </li>
+  <li><strong>CALL</strong>
+    <ol>
+      <li>Implicitly modifying EIP</li>
+      <li>Transfer control to a different function, in a way that it can be resumed where it left off</li>
+      <li>What’s happening behind when CALL instruction is done
+        <ol>
+          <li>Push the address of the next instruction onto the stack</li>
+          <li>Then it changes EIP to the address given in the instruction</li>
+        </ol>
+      </li>
+      <li>Destination address can be specified in multiple ways
+        <ol>
+          <li>Absolute address eg : go to 0x00239082</li>
+          <li>Relative address eg: go to hex 50 bytes passed to the end of the next instruction</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><strong>RET</strong>
+    <ol>
+      <li>Two types
+        <ol>
+          <li>CDECL -  POP the top of the stack into EIP</li>
+          <li>STDL - POP the top of the stack into EIP and add a constant number of bytes to esp. Eg ret 0x20</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li>**MOV **
+    <ol>
+      <li>Can move
+        <ol>
+          <li>Register to register</li>
+          <li>Memory to register and vice versa</li>
+          <li>Immediate(constants hard coded to the instruction stream ) to register and vice versa</li>
+        </ol>
+      </li>
+      <li>Never memory to memory</li>
+    </ol>
+  </li>
+  <li><strong>LEA</strong>
+    <ol>
+      <li>Load Effective Address</li>
+      <li>Calculates whatever address inside the ‘[ ]’ and store it back into EAX</li>
+    </ol>
+  </li>
+  <li><strong>ADD</strong>
+    <ol>
+      <li>ADD ESP, 8 -&gt; ESP = ESP + 8</li>
+    </ol>
+  </li>
+  <li><strong>SUB</strong>
+    <ol>
+      <li>SUB eax, [ebx*2] = takes the value inside ebx, mul 2, treat it as address then eax - the memory content and store it into eax</li>
+    </ol>
+  </li>
+  <li><strong>JMP</strong>
+    <ol>
+      <li>Changes the eip to the given address</li>
+      <li>Main forms of address
+        <ol>
+          <li>Short relative - 1 byte from end of the instruction eg jmp 0x0E forward</li>
+          <li>Near relative - 4 bytes displacement from the current EIP</li>
+          <li>Absolute - hardcoded address in the instruction</li>
+          <li>Absolute indirect - address calculated with r/m32</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><strong>JCC</strong>
+    21. Jump if condition is met
+    22. JNE = JNZ because both instructions check for zero flag
+    23. JZ/JE -&gt; if true go to jmp . If false, falls into the next instruction
+    24. JLE
+    25. JGE</li>
+  <li><strong>CMP</strong>
+    <ol>
+      <li>Is performed by subtracting the second operand from the first operand and then setting the status flags</li>
+      <li>Would not store after subtracting</li>
+    </ol>
+  </li>
+  <li><strong>TEST</strong>
+    <ol>
+      <li>Does logical and on operators</li>
+      <li>Does not store the result</li>
+      <li>Set the flag</li>
+    </ol>
+  </li>
+  <li>**AND **
+    31. Does and operations
+    32. Eg: And al,bl
+    33. Destination can r/m32 and source can be r/m32 or register or immidiate 
+    34. Sets flag in the background(all logical operators)</li>
+  <li><strong>OR</strong>
+    <ol>
+      <li>Does or operation</li>
+    </ol>
+  </li>
+  <li><strong>XOR</strong>
+    <ol>
+      <li>Does XOR operation</li>
+    </ol>
+  </li>
+  <li><strong>NOT</strong>
+    <ol>
+      <li>Does NOT operation</li>
+    </ol>
+  </li>
+  <li><strong>SHL</strong>
+    <ol>
+      <li>Shift logical left &lt;&lt;</li>
+      <li>Can be used to multiply( power of 2)</li>
+    </ol>
+  </li>
+  <li><strong>SHR</strong>
+    <ol>
+      <li>Shift logical right »</li>
+      <li>Can be used to divide number(power of 2)</li>
+    </ol>
+  </li>
+  <li>I<strong>MUL</strong>
+    <ol>
+      <li>3 forms
+        <ol>
+          <li>IMUL r/m32 -&gt; edx:eax=eax*r/m32</li>
+          <li>IMUL reg, r/m32 -&gt; reg = reg*r/m32</li>
+          <li>IMUL reg. r/m32, immediate -&gt; reg=r/m32 * immediate</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><strong>DIV</strong>
+    <ol>
+      <li>Two forms:
+        <ol>
+          <li>Unsigned divide ax by r/m8,al=quotient, ah =remainder</li>
+          <li>Unsigned divide  EDX:EAX by r/m8 ,eax= quotient ,edx =remainder</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><strong>REP STOS</strong>
+    <ol>
+      <li>Repeat a single instruction multiple times</li>
+      <li>Specifies the number of time (loop) in ECX</li>
+      <li>Size should be specified</li>
+      <li>Then data keeps on writing into eax</li>
+    </ol>
+  </li>
+</ol>
+
+<p><strong><span style="text-decoration:underline;">Stack</span></strong></p>
+
+<ul>
+  <li>Stack is a conceptual area of main memory(RAM) which is designed by the OS when a program is started.</li>
+  <li>Has certain type of Data structure</li>
+  <li>It can be anywhere in the ram, decided by the OS</li>
+  <li>When a program is started, OS reserves some chunk of ram and put the stack over there</li>
+  <li>LIFO/FILO data structure</li>
+  <li>Stack grows towards the lower memory addresses</li>
+  <li>Top of the stack is always the lowest numeric addresses</li>
+  <li>ESP points towards the top of the stack , lower address -&gt; 00000</li>
+  <li>Keeps tracks of which functions were called before the current one(eg: main and subroutine 1)</li>
+  <li>Holds local variable and frequently used to pass arguments to the next function to be called</li>
+  <li></li>
+</ul>
+
+<p><strong><span style="text-decoration:underline;">Calling Conventions</span></strong></p>
+
+<ul>
+  <li>How to pass parameters to a function and how you get parameters back</li>
+  <li>Conventions
+    <ul>
+      <li>CDECL</li>
+      <li>STDL</li>
+    </ul>
+  </li>
+  <li><strong>CDECL</strong>
+    <ul>
+      <li>C Declaration - most calling convention</li>
+      <li>Functions parameters are pushed onto stack right to left. Eg print(“%d”, myvar). myvar-&gt;%d-&gt;printf</li>
+      <li>When a function is called, it saves the old stack frame and set up new frame(eg if new new function is called it saves the copy of  main( ) frame and set up the stack frame of the newly called function. So after it’s done it can go back to main() stack frame )</li>
+      <li><strong>Caller is responsible for cleaning up the stack(responsible for poping up the parameters of the stack )</strong></li>
+    </ul>
+  </li>
+  <li><strong>STDL</strong>
+    <ul>
+      <li>Used by Microsoft C++ code</li>
+      <li>Functions parameters are pushed onto stack right to left</li>
+      <li>When a function is called, it saves the old stack frame and set up new frame</li>
+      <li><strong>Callee is responsible for cleaning up any stack parameters it takes</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong><span style="text-decoration:underline;">General stack frame operation</span></strong></p>
+
+<p>When a program is executed, first main() reserves space on the stack for it’s local variable. This is done by subtracting ESP in order to make space for local variables. If main() wants to call a subroutine(), main() becomes “the caller”. And performs caller-save register to store those registers if its present. In the next step the parameters are pushed into the stack. Ie: arguments are passed to the callee. When we actually execute the CALL instruction(subroutine()), the saved return address of the next instruction after the CALL instruction will be pushed onto the stack. So that when Callee is done executing the instructions, it can look up the this value and know where to go back.The entire main() stack frame is till this step. EBP always points to the start of the stack frame.</p>
+
+<p>Now the first thing the subroutine() going to do is that it takes the EBP, the pointer which points to the top of the local variables and save it under the stack. So when it’s done and ready to destroy its own stack frame, it takes the stack pointer and put backs to EBP so that it again points to mains frame instead of its own. Then the subroutine() takes any callee-save registers, it will go ahead and save them.Stack frames are a linked list</p>
+
+<p>If subroutine() wants subroutine2(), subroutine has to go through the same steps.</p>
+
+<p>After subroutine() is done, it will clean all parameter, caller-save register, local variables,callee-save registers in sequential order and it takes the saved frame pointer and replace EBP with this value. So that it will point to main() frame. Then all the parameters and local variables in main() will get cleaned.</p>
+
+<p><strong>CPUID</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>48. CPU feature identification
+49. Tells what features your pc currently supports eg: virtualization
+50. Doesn’t have operands
+51. Before issue cpuid eax should be set
+52. After issuing cpuid eax,ebx,ecx,edx are going to be overridden
+</code></pre></div></div>
+
+<p><strong>PUSHFD</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>53. Push EFlags onto the stack
+</code></pre></div></div>
+
+<p><strong>POPFD</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>54. POP stack into EFlags
+</code></pre></div></div>
+
+<p><strong><span style="text-decoration:underline;">Control Flow</span></strong></p>
+
+<ul>
+  <li>Conditional  - if, switch,loops</li>
+  <li>Unconditional - calls, goto,exceptions,interrupts</li>
+</ul>
+
+<p><strong>Inline Assembly</strong></p>
+
+<p>Syntax intel</p>
+
+<p>__asm{</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mov eax, [esp + 0x4]
+</code></pre></div></div>
+
+<p>}</p>
+
+<p>Syntax AT&amp;T</p>
+
+<p>asm(“push EBP \n”</p>
+
+<p>“Mov ESP , EBP\n”</p>
+
+<p>);</p>
+
+<p><strong>Compliling</strong></p>
+
+<p>Gcc -o &lt;output&gt; &lt;input&gt;</p>
+
+<p>Gcc -o file file.c</p>
+
+<p>-ggdb -&gt;to add debug symbols</p>
+
+<p><strong>Buffer Overflow</strong></p>
+
+
+  
+</article>
+
+
+
+<footer>
+  <div>Akhil Mahendra</div>
+  <nav><a href="mailto:akhilmahendra799@gmail.com" ><svg aria-label="Mail" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#envelope"></use></svg></a><a href="https://github.com/th3-j0k3r" ><svg aria-label="Github" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#github"></use></svg></a><a href="/feed.xml" ><svg aria-label="Subscribe" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#rss"></use></svg></a></nav>
+
+</footer>
+
+
+</html>
